@@ -1,8 +1,8 @@
 {
   "id": "./",
-  "name": "Rhine Lab · Analysis OS",
-  "short_name": "Rhine Lab",
-  "description": "莱茵生命交互式三维研究档案终端",
+  "name": "Personal Introduction",
+  "short_name": "My Profile",
+  "description": "个人简历与自我介绍档案",
   "lang": "zh-CN",
   "start_url": "./?source=pwa",
   "scope": "./",

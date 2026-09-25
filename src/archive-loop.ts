@@ -4,11 +4,11 @@ export type ArchiveCell = { lane: number; row: number };
 export type ArchiveNavigation =
   { axis: "row" | "lane"; direction: number } | { cell: ArchiveCell };
 
-export const LOOP_COLUMNS = 9;
+const POOL_LANES = archiveColumns.length === 1 ? [0] : [0, 1, 2, 3, 4, -2, -1, 5, 6];
+export const LOOP_COLUMNS = POOL_LANES.length;
 export const LOOP_ROWS = 32;
 export const COLUMN_SPACING = 5.2;
 export const ROW_SPACING = 0.62;
-const POOL_LANES = [0, 1, 2, 3, 4, -2, -1, 5, 6];
 
 export function wrap(value: number, count: number) {
   return ((value % count) + count) % count;
@@ -53,11 +53,11 @@ export function selectionCell(
   };
 }
 
-// Preserve the reference animation's original first 160 instances. The four
-// extra columns form a hidden margin on either side during interactive use.
+// Keep a single lane for the résumé directory, or add a hidden margin around
+// the original multi-category layout when it is in use.
 export function poolCell(index: number): ArchiveCell {
   return {
-    lane: POOL_LANES[Math.floor(index / LOOP_ROWS)],
+    lane: POOL_LANES[Math.floor(index / LOOP_ROWS) % POOL_LANES.length],
     row: index % LOOP_ROWS,
   };
 }
@@ -65,7 +65,7 @@ export function poolCell(index: number): ArchiveCell {
 export function visibleCell(index: number, center: ArchiveCell): ArchiveCell {
   return {
     lane: nearestOccurrence(
-      POOL_LANES[Math.floor(index / LOOP_ROWS)],
+      POOL_LANES[Math.floor(index / LOOP_ROWS) % POOL_LANES.length],
       center.lane,
       LOOP_COLUMNS,
     ),

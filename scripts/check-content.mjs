@@ -44,16 +44,16 @@ const invalidCases = [
   [
     "duplicate ID",
     (c) => {
-      c.records[1].id = "X-001";
+      c.records[1].id = c.records[0].id;
     },
     /重复编号/,
   ],
   [
-    "reordered ID",
+    "invalid ID format",
     (c) => {
-      [c.records[0], c.records[1]] = [c.records[1], c.records[0]];
+      c.records[0].id = "RESUME-1";
     },
-    /X-001/,
+    /三位数字/,
   ],
   [
     "unknown category",
@@ -65,7 +65,7 @@ const invalidCases = [
   [
     "unbalanced columns",
     (c) => {
-      c.records[0].category = c.columns[0];
+      c.records[0].category = "其他";
     },
     /八份档案/,
   ],
@@ -74,7 +74,7 @@ const invalidCases = [
     (c) => {
       c.records.pop();
     },
-    /四十份档案/,
+    /八份档案/,
   ],
   [
     "null record",
@@ -130,7 +130,7 @@ const invalidCases = [
     (c) => {
       c.columns[0] = "其他";
     },
-    /相同的五个分类/,
+    /相同的分类/,
   ],
 ];
 for (const [name, mutate, error] of invalidCases) {

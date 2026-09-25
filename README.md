@@ -1,6 +1,6 @@
-# RHINE LAB · ANALYSIS OS
+# PERSONAL INTRODUCTION
 
-**把莱茵生命的终端，做成可以操作的三维界面。**
+**把个人经历整理成可浏览的三维简历档案。**
 
 **[在线体验 → rhine.lubeiluchen.cc](https://rhine.lubeiluchen.cc/)**
 
@@ -8,7 +8,7 @@ iPhone 可用 Safari 打开在线版，通过“分享 → 添加到主屏幕”
 
 ![莱茵生命终端：由透明档案盒构成的三维阵列](docs/media/archive.jpg)
 
-这是对《明日方舟》特别映像「莱茵生命：访问」终端界面的非官方复刻。从白底开场进入五列循环档案阵列，抽取一份档案，等待玻璃与正文解密，再进入独立查看器观察内部结构。
+从白底开场进入个人简历档案阵列，浏览八份按主题划分的个人档案；每份档案可以展开为主题栏目，再进入独立查看器观察文档模型。
 
 项目以原 PV 的 **5–40 秒**为主要视觉与动效参考，实际开场从 **6.76 秒的白色画面**开始；内部结构另参考约 **41 秒及 46–51 秒**的正面与多角度画面。检索、收藏、正文阅读、结构拆解与声音设置是可操作的扩展功能。
 
@@ -104,7 +104,7 @@ npm run build:wallpaper
 
 ### 循环阵列与滚动标题
 
-五类、每类八份，共 **40 份档案**。上下翻阅、左右切列均可持续循环；切回某列时保留上次选择。选中抬起与阵列波浪同时开始，标题和编号跟随输入滚动；返回阵列时，档案先转正再下降。
+当前目录只保留“个人简历”一列，共 **8 份个人档案**。上下翻阅可持续循环；标题和编号跟随选择滚动，返回阵列时档案先转正再下降。
 
 <details>
 <summary><strong>查看动图：切列、翻阅与连续文字滚动</strong></summary>
@@ -176,11 +176,10 @@ npm run preview
 | 操作 | 效果 |
 | --- | --- |
 | 开场中按 `Enter` / `Esc`，或点击 `ENTER SYSTEM` | 资源就绪后进入交互阵列 |
-| `←` / `→` | 切换档案类别，首尾循环 |
 | `↑` / `↓` | 翻阅同类档案，首尾循环 |
 | `Enter`、`ACCESS FILE` 或文件编号 | 读取当前档案 |
 | 在详情模型上拖动 | 档案获得净空后，旋转观察 |
-| `/` 或 `ARCHIVE INDEX` | 打开检索，可搜索编号、标题、英文名、科室、负责人和分类 |
+| `/` 或 `ARCHIVE INDEX` | 打开检索，可搜索编号、标题和简历栏目内容 |
 | `SAVE ARCHIVE` / `SAVED` | 收藏当前档案 / 查看收藏 |
 | `EXPORT` | 下载当前档案的文本文件 |
 | `Esc` | 关闭当前弹窗，或从详情返回阵列 |
@@ -216,7 +215,7 @@ npm run preview
 | [`src/decryption.ts`](src/decryption.ts)、[`src/document-decryption.ts`](src/document-decryption.ts) | 模型解密轨迹与正文同步揭示 |
 | [`src/audio.ts`](src/audio.ts)、[`public/audio/`](public/audio/) | 交互音效、三轨配乐与音源记录 |
 | [`src/render-quality.ts`](src/render-quality.ts)、[`src/quality-renderer.ts`](src/quality-renderer.ts) | 画质预设与渲染管线 |
-| [`content/archives.json`](content/archives.json) | 页面与下载共用的五类、40 份档案数据 |
+| [`content/archives.json`](content/archives.json) | 页面与下载共用的个人简历分类和八份档案数据 |
 | [`src/data.ts`](src/data.ts) | 档案类型与阵列位置映射 |
 | [`public/assets/`](public/assets/) | 运行所需的 GLB 模型 |
 | [`public/archives/`](public/archives/) | 导出的档案文本；启动和构建前自动生成 |

@@ -12,6 +12,11 @@ export interface ArchiveRecord {
   abstract: string;
   findings: string[];
   source: string;
+  sections?: {
+    title: string;
+    en: string;
+    items: string[];
+  }[];
 }
 
 export const records: ArchiveRecord[] = content.records;

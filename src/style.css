@@ -103,23 +103,23 @@ button {
   white-space: nowrap;
 }
 .brand h1 {
-  font-size: 44px;
-  letter-spacing: 2.324px;
-  line-height: 48px;
+  font-size: 30px;
+  letter-spacing: 0.5px;
+  line-height: 38px;
   margin: 0;
   font-weight: 750;
 }
 .brand > div {
-  font-size: 19px;
-  line-height: 23px;
-  letter-spacing: 0.587px;
+  font-size: 12px;
+  line-height: 18px;
+  letter-spacing: 0.55px;
   font-weight: 600;
 }
 .brand p {
   margin: 0;
-  font-size: 35px;
-  line-height: 40px;
-  letter-spacing: 0;
+  font-size: 18px;
+  line-height: 25px;
+  letter-spacing: 1px;
   word-spacing: 0;
   display: flex;
   justify-content: space-between;

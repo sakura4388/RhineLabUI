@@ -19,7 +19,7 @@ import { applyTextureQuality, resizeQuality } from "./quality-renderer";
 import { CardAppearance } from "./appearance";
 import { configureInternalOptics } from "./internal-optics";
 import { DecryptionController } from "./decryption";
-import { fileAtSlot, fileLocation } from "./data";
+import { archiveColumns, fileAtSlot, fileLocation } from "./data";
 import {
   cellKey,
   sameCell,
@@ -183,13 +183,13 @@ export class ArchiveScene {
   private raycaster = new THREE.Raycaster();
   private dummy = new THREE.Object3D();
   private cells: ArchiveCell[] = [];
-  private selectedCell: ArchiveCell = { lane: 2, row: 12 };
+  private selectedCell: ArchiveCell = { lane: Math.floor((archiveColumns.length - 1) / 2), row: 12 };
   private looping = false;
   private coordinateOrigin: ArchiveCell = { lane: 0, row: 0 };
   private lift = { value: 0, velocity: 0 };
   private rail = { value: 0, velocity: 0 };
   private shoulder = { value: 12, velocity: 0 };
-  private laneFocus = { value: 2, velocity: 0 };
+  private laneFocus = { value: Math.floor((archiveColumns.length - 1) / 2), velocity: 0 };
   private columnCamera = { value: 0, velocity: 0 };
   private returnY: number | null = null;
   private canInspect = false;
@@ -270,7 +270,7 @@ export class ArchiveScene {
     this.renderer.toneMappingExposure = 1.05;
     this.renderer.domElement.setAttribute(
       "aria-label",
-      "三维研究档案阵列，点击选择，左右拖动切列，上下拖动或滚轮切换列内档案",
+      "三维个人简历档案阵列，点击选择，拖动或滚轮浏览八份个人档案",
     );
     container.appendChild(this.renderer.domElement);
     this.renderer.domElement.addEventListener('webglcontextrestored', () => this.renderState.invalidate(), { signal: this.inputEvents.signal });
@@ -654,7 +654,7 @@ export class ArchiveScene {
   }
   private cellPosition(cell: ArchiveCell) {
     return new THREE.Vector3(
-      (cell.lane - 2) * COLUMN_SPACING,
+      (cell.lane - (archiveColumns.length - 1) / 2) * COLUMN_SPACING,
       -4.6,
       (cell.row - 15.5) * ROW_SPACING,
     );
@@ -665,7 +665,7 @@ export class ArchiveScene {
     const shift = {
       lane:
         Math.abs(this.selectedCell.lane) > 2048
-          ? Math.round((this.selectedCell.lane - 2) / 5) * 5
+          ? Math.round((this.selectedCell.lane - (archiveColumns.length - 1) / 2) / archiveColumns.length) * archiveColumns.length
           : 0,
       row:
         Math.abs(this.selectedCell.row) > 2048
@@ -776,17 +776,17 @@ export class ArchiveScene {
     c.fillRect(12, 12, 1000, 6);
     c.fillRect(12, 419, 1000, 3);
     c.font = "bold 81px MiSans";
-    c.fillText("RHINE LAB, LLC.", 22, 116);
+    c.fillText("CHEN JINFENG", 22, 116);
     c.font = "32px MiSans";
     c.fillStyle = "#878476";
-    c.fillText("INTERNAL DATABASE", 25, 174);
+    c.fillText("PERSONAL INTRODUCTION", 25, 174);
     c.fillStyle = "#171713";
     c.font = "bold 130px MiSans";
     c.fillText("NO." + String(index + 1).padStart(3, "0"), 22, 360);
     c.fillRect(782, 32, 221, 39);
     c.fillStyle = "#eee9de";
     c.font = "24px MiSans";
-    c.fillText("R L / I S", 809, 61);
+    c.fillText("C J F", 809, 61);
     c.fillStyle = "#171713";
     c.font = "bold 64px MiSans";
     c.fillText("INFO", 830, 143);
@@ -1306,7 +1306,7 @@ export class ArchiveScene {
     }
     const spectrumPoint = new THREE.Vector3();
     const screenX = (row: number, lane: number) => {
-      spectrumPoint.set((lane - 2) * COLUMN_SPACING - trackX, -4.6, (row - 15.5) * ROW_SPACING + this.rail.value).project(this.camera);
+      spectrumPoint.set((lane - (archiveColumns.length - 1) / 2) * COLUMN_SPACING - trackX, -4.6, (row - 15.5) * ROW_SPACING + this.rail.value).project(this.camera);
       return (spectrumPoint.x + 1) / 2;
     };
     const field = (row: number, lane: number) => {
@@ -1642,7 +1642,7 @@ export class ArchiveScene {
     // Build and compact the instance set only after the actual damped camera
     // is final for this frame. Picking uses the same packed index-to-cell map.
     const fixed = (Boolean(cinematic) || !this.looping) && !responsiveOpening;
-    this.cells = fixed ? Array.from({ length: 160 }, (_, i) => poolCell(i))
+    this.cells = fixed ? Array.from({ length: Math.min(160, LOOP_COLUMNS * LOOP_ROWS) }, (_, i) => poolCell(i))
       : this.visibility.update(this.camera, fog.far, trackX, entryZ + this.rail.value, this.extraCoverage);
     const hidden = new Set(this.outgoing.map(o => cellKey(o.cell)));
     hidden.add(cellKey(this.selectedCell));
@@ -1653,7 +1653,7 @@ export class ArchiveScene {
     for (const cell of this.cells) {
       const { row, lane } = cell;
       if (hidden.has(cellKey(cell))) continue;
-      const x = (lane - 2) * COLUMN_SPACING - trackX;
+      const x = (lane - (archiveColumns.length - 1) / 2) * COLUMN_SPACING - trackX;
       const y = -4.6 + field(row, lane) + hoverLift(cell) - this.presentationDrop(cell);
       const z = (row - 15.5) * ROW_SPACING + entryZ + this.rail.value;
       if (!fixed && !this.visibility.intersects(x, y, z)) continue;

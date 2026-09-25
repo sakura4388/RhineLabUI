@@ -21,9 +21,9 @@ export function validateContent(content) {
   }
   for (const key of ["categories", "columns"]) {
     const names = content[key];
-    if (!Array.isArray(names) || names.length !== 5 || !names.every(isText)) {
-      errors.push(`${key}：必须包含五个非空分类名称`);
-    } else if (new Set(names).size !== 5 || names.includes("全部档案")) {
+    if (!Array.isArray(names) || names.length < 1 || !names.every(isText)) {
+      errors.push(`${key}：必须包含至少一个非空分类名称`);
+    } else if (new Set(names).size !== names.length || names.includes("全部档案")) {
       errors.push(`${key}：分类名称不能重复，也不能使用“全部档案”`);
     }
   }
@@ -35,10 +35,10 @@ export function validateContent(content) {
     categories.some((name) => !columns.includes(name)) ||
     columns.some((name) => !categories.includes(name))
   ) {
-    errors.push("categories 与 columns 必须包含相同的五个分类（顺序可以不同）");
+    errors.push("categories 与 columns 必须包含相同的分类（顺序可以不同）");
   }
   const records = Array.isArray(content.records) ? content.records : [];
-  if (records.length !== 40) errors.push("records：当前阵列要求四十份档案");
+  if (records.length !== columns.length * 8) errors.push("records：每个分类必须恰好包含八份档案");
   const ids = new Set();
   records.forEach((record, index) => {
     const label = `records[${index}]`;
@@ -49,9 +49,8 @@ export function validateContent(content) {
     for (const key of requiredFields) {
       if (!isText(record[key])) errors.push(`${label}.${key}：必须是非空文本`);
     }
-    const expectedId = `X-${String(index + 1).padStart(3, "0")}`;
-    if (record.id !== expectedId)
-      errors.push(`${label}.id：应为 ${expectedId}，编号须按顺序保持稳定`);
+    if (!/^X-\d{3}$/.test(record.id))
+      errors.push(`${label}.id：必须是 X- 加三位数字的稳定编号`);
     if (ids.has(record.id)) errors.push(`${label}.id：重复编号 ${record.id}`);
     ids.add(record.id);
     if (!categories.includes(record.category))
@@ -72,7 +71,7 @@ export function validateContent(content) {
   });
   for (const name of columns) {
     if (records.filter((record) => record?.category === name).length !== 8) {
-      errors.push(`分类“${name}”：当前阵列要求八份档案`);
+      errors.push(`分类“${name}”：必须恰好包含八份档案`);
     }
   }
   if (errors.length)
@@ -92,5 +91,10 @@ export async function loadContent() {
 }
 
 export function archiveText(r) {
-  return `\uFEFFRHINE LAB · INTERNAL DATABASE\nFILE ${r.id} / ${r.title}\n${r.en}\n\n科室：${r.department}\n编目范围：${r.date}\n相关人物：${r.lead}\n访问范围：${r.clearance}\n\n${r.abstract}\n\n研究记录\n${r.findings.map((f, i) => `${i + 1}. ${f}`).join("\n")}\n\n设定参考：${r.source}\n本文为基于公开设定的档案式改写，非游戏原文。\n`;
+  const body = r.sections
+    ? r.sections
+        .map((section) => `${section.title} / ${section.en}\n${section.items.map((item, i) => `${i + 1}. ${item}`).join("\n")}`)
+        .join("\n\n")
+    : `记录\n${r.findings.map((f, i) => `${i + 1}. ${f}`).join("\n")}`;
+  return `\uFEFFPERSONAL INTRODUCTION · RESUME ARCHIVE\nFILE ${r.id} / ${r.title}\n${r.en}\n\n${r.abstract}\n\n${body}\n`;
 }

@@ -1,18 +1,22 @@
-﻿RHINE LAB · INTERNAL DATABASE
-FILE X-023 / 伊芙利特的恢复
-IFRIT: RECOVERY
+﻿PERSONAL INTRODUCTION · RESUME ARCHIVE
+FILE X-023 / 项目与成果
+PROJECTS & ACHIEVEMENTS
 
-科室：医疗协作组
-编目范围：跨期资料汇编
-相关人物：Ifrit / Silence
-访问范围：REFERENCE AREA
+与 5 人团队「物理老是写不队」开发物理卡牌对战游戏《物理学不存在了》，获 2026 未央黑客松一等奖。本人主页列出 33 次代码提交及游戏机制、可视化、地图交互和云端联机等贡献。
 
-伊芙利特曾是莱茵生命的医疗对象，之后在罗德岛由赫默照护。她的故事不应停留在异常能力或实验经历上。本卷把恢复、学习与日常关系放到记录中心，关注她如何逐渐理解自己的力量，并建立自己的生活。
+项目概览 / PROJECT OVERVIEW
+1. 项目：《物理学不存在了》物理卡牌对战游戏。
+2. 时间与荣誉：2026 年未央黑客松一等奖。
+3. 团队：5 人，团队名「物理老是写不队」。
+4. 规模：5 大物理流派、155 张对应真实物理公式的卡牌；提供 7 种房间模式。
 
-研究记录
-1. 将身体状态与日常适应共同记录，避免只追踪能力表现。
-2. 保留当事人的表达，不让旁观者的描述取代她的声音。
-3. 区分历史事件造成的影响与正在发生的改变。
+技术与玩法 / TECHNOLOGY & GAMEPLAY
+1. 技术：JavaScript、Node.js、WebSocket、Cloudflare Pages、Durable Objects。
+2. 支持本地双人、局域网及全球联机；使用 WebSocket 与 Cloudflare Durable Objects 中继。
+3. 还包括象牙塔 PvE 爬塔、问答房等模式；已部署至 Cloudflare Pages。
 
-设定参考：https://prts.wiki/w/Ifrit
-本文为基于公开设定的档案式改写，非游戏原文。
+个人贡献 / CONTRIBUTIONS
+1. 主页注明个人贡献共 33 次 commits。
+2. 设计热学「热失控」流派及环境温度全局机制。
+3. 实现卡牌与天赋效果可视化、象牙塔地图自由通行交互。
+4. 实现 Pages Functions 与 Durable Objects 云端联机中继，并编写一键部署脚本。

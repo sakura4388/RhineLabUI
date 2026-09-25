@@ -3,7 +3,7 @@ import { InspectionOverlay } from "./inspection-overlay";
 import { DocumentDecryption } from "./document-decryption";
 import "./document-decryption.css";
 import "./decryption.css";
-import { escapeHtml } from "./html";
+import { escapeHtml, linkifyHttps } from "./html";
 import { normalizeQuality, qualityPresets, type QualityPreset, type RenderQuality } from "./render-quality";
 import { qualityMarkup, syncQualityUI } from "./quality-settings";
 import { superPerformanceQuality, wallpaperQuality } from "./wallpaper-quality";
@@ -66,38 +66,38 @@ $("#stage").innerHTML = `
   <div id="boot-background" class="boot-background"><svg viewBox="0 0 1920 1080" preserveAspectRatio="none"><g fill="none" stroke="#fff" stroke-width="3"><path d="M-210 705C-45 705 182 704 247 567C337 377 99 306 4 435S27 680 169 631C309 584 227 314 279 111S568-113 568-113"/><path d="M1560-80C1374 114 1671 168 1601 323S1371 367 1431 480S1692 666 1559 787S1329 886 1498 1130"/><circle cx="1450" cy="648" r="346"/><circle cx="1450" cy="648" r="348"/></g></svg></div>
   <header class="brand">${brandHeading}</header>
   <nav class="system-nav" aria-label="系统导航">
-    <button data-action="search"><span class="nav-glyph">⌕</span> ARCHIVE INDEX <span class="key">/</span></button>
+    <button data-action="search"><span class="nav-glyph">⌕</span> PROFILE INDEX <span class="key">/</span></button>
     <button data-action="saved" aria-label="查看收藏档案" title="收藏档案">＋ SAVED <span id="saved-count">00</span></button>
     <button class="settings-button" data-action="settings" aria-label="系统设置" title="系统设置"><span class="settings-glyph" aria-hidden="true">◷</span><span class="settings-label">设置</span></button>
   </nav>
-  <button id="skip" class="skip" data-action="skip">ENTER SYSTEM <span>↗</span></button>
-  <section id="boot" class="boot" aria-label="系统启动">
-    <div class="access-text">ACCESS</div>
+  <button id="skip" class="skip" data-action="skip">VIEW PROFILE <span>↗</span></button>
+  <section id="boot" class="boot" aria-label="个人介绍开场动画">
+    <div class="access-text">WELCOME</div>
     <div class="boot-logo">${logo}</div>
     <div class="auth-status"><span>▪</span> <span id="auth-message"></span><i></i></div>
-    <div class="scan"><svg viewBox="0 0 1920 1080" aria-hidden="true"><g fill="none" stroke="#080a08" stroke-width="2" stroke-linecap="round"><path/><path stroke="#fff"/><path/><path/><path/><path/><circle class="orbit-dot" r="8" fill="#ed821b" stroke="none"/><circle class="orbit-dot" r="8" fill="#ed821b" stroke="none"/><circle class="scan-core" cx="960" cy="540" r="5" fill="#080a08" stroke="none"/></g></svg><span>PERMISSION AUTHORIZED</span></div>
-    <div class="welcome"><div class="welcome-panel"></div><div class="welcome-heading">WELCOME TO</div><div class="welcome-company"><strong>RHINE LAB.LLC.</strong><strong class="welcome-highlight" aria-hidden="true">RHINE LAB.LLC.</strong></div><div class="welcome-database">INTERNAL DATABASE</div><div class="welcome-logo">${logo}</div></div>
+    <div class="scan"><svg viewBox="0 0 1920 1080" aria-hidden="true"><g fill="none" stroke="#080a08" stroke-width="2" stroke-linecap="round"><path/><path stroke="#fff"/><path/><path/><path/><path/><circle class="orbit-dot" r="8" fill="#ed821b" stroke="none"/><circle class="orbit-dot" r="8" fill="#ed821b" stroke="none"/><circle class="scan-core" cx="960" cy="540" r="5" fill="#080a08" stroke="none"/></g></svg><span>PROFILE READY</span></div>
+    <div class="welcome"><div class="welcome-panel"></div><div class="welcome-heading">WELCOME TO</div><div class="welcome-company"><strong>CHEN JINFENG</strong><strong class="welcome-highlight" aria-hidden="true">CHEN JINFENG</strong></div><div class="welcome-database">PERSONAL INTRODUCTION</div><div class="welcome-logo">${logo}</div></div>
   </section>
   <svg id="inspection-marks" viewBox="0 0 1920 1080" aria-hidden="true"><path id="inspection-lines"/><g id="inspection-corners"></g><circle id="inspection-point" r="1.8"/></svg>
-  <div id="inspection-text" aria-hidden="true">CONFIDENTIALITY:<strong>GENERAL BUSINESS USE</strong></div>
+  <div id="inspection-text" aria-hidden="true">PERSONAL PROFILE:<strong>CHEN JINFENG</strong></div>
   <section id="archive-ui" class="archive-ui" aria-label="档案选择">
-    <div class="archive-callout"><div class="eyebrow">INTERNAL DATABASE <span>／</span> <span id="archive-category">机构档案</span></div><button class="file-title" data-action="open">FILE NUMBER: <span id="selected-id">X-<span id="selected-code">001</span></span><span class="file-open">↗</span></button><div class="callout-rule"><i></i></div><div class="file-summary"><span id="selected-title">莱茵生命</span><span id="selected-clearance">BUSINESS AREA</span></div><button class="read-file" data-action="open">ACCESS FILE <span>→</span></button></div>
-    <div id="hover-label" class="hover-label" hidden>X-<span id="hover-code">001</span> / <span id="hover-title"></span></div>
-    <div class="archive-counter"><span class="tiny-label">ARCHIVE / SELECT</span><div><span id="selected-number">01</span><i>/</i><span class="count-total">12</span></div></div>
+    <div class="archive-callout"><div class="eyebrow">PERSONAL PROFILE <span>／</span> <span id="archive-category">个人简历</span></div><button class="file-title" data-action="open">FILE NUMBER: <span id="selected-id">X-<span id="selected-code">003</span></span><span class="file-open">↗</span></button><div class="callout-rule"><i></i></div><div class="file-summary"><span id="selected-title">人生概览</span><span id="selected-clearance">PERSONAL RECORD</span></div><button class="read-file" data-action="open">ACCESS FILE <span>→</span></button></div>
+    <div id="hover-label" class="hover-label" hidden>X-<span id="hover-code">003</span> / <span id="hover-title"></span></div>
+    <div class="archive-counter"><span class="tiny-label">PROFILE / SELECT</span><div><span id="selected-number">01</span><i>/</i><span class="count-total">08</span></div></div>
     <div class="archive-navigation"><button data-action="prev" aria-label="上一个档案">↑</button><div id="file-ticks" class="file-ticks"></div><button data-action="next" aria-label="下一个档案">↓</button></div>
-    <div class="column-navigation"><button data-action="column-prev" aria-label="上一列">←</button><div><span id="column-number">COLUMN <span id="column-index">03</span> / 05</span><strong id="column-name">机构档案</strong></div><button data-action="column-next" aria-label="下一列">→</button></div>
-    <div class="archive-hint"><kbd>←</kbd> <kbd>→</kbd> 切换列 <span>／</span> <kbd>↑</kbd> <kbd>↓</kbd> 前后档案 <span>／</span> <kbd>ENTER</kbd> 读取</div>
+    <div class="column-navigation"><button data-action="column-prev" aria-label="上一列">←</button><div><span id="column-number">COLUMN <span id="column-index">01</span> / 01</span><strong id="column-name">个人简历</strong></div><button data-action="column-next" aria-label="下一列">→</button></div>
+    <div class="archive-hint"><kbd>↑</kbd> <kbd>↓</kbd> 浏览档案 <span>／</span> <kbd>ENTER</kbd> 读取</div>
   </section>
   <section id="detail-ui" class="detail-ui" aria-label="档案内容" hidden>
     <button class="back-button" data-action="back">← <span>ARCHIVE OVERVIEW</span><small>ESC</small></button>
-    <div class="object-caption"><span id="object-id">NO.001</span><div>INTERNAL DATABASE</div><small>DRAG TO INSPECT <span>↔</span></small><button class="viewer-open" data-action="model-viewer">360° 查看文档模型 <span>↗</span></button></div>
+    <div class="object-caption"><span id="object-id">NO.001</span><div>PERSONAL PROFILE</div><small>DRAG TO EXPLORE <span>↔</span></small><button class="viewer-open" data-action="model-viewer">360° 查看档案模型 <span>↗</span></button></div>
     <article id="detail-content" class="detail-content"></article>
   </section>
-  <div class="powered">POWERED BY <b>RHINE LAB</b><i></i></div>
-  <footer class="system-footer"><span><i class="status-light"></i> SESSION AUTHORIZED${isWallpaper ? '<button type="button" class="three-toggle" data-action="toggle-three" aria-pressed="true" title="卸载三维模型，保留 2D 界面">3D 开启</button>' : ''}</span><span>JOYCE MOORE <i>／</i> <span id="clock">00:00:00</span></span><button data-action="replay" title="重播启动流程">REINITIALIZE ↗</button></footer>
+  <div class="powered">ABOUT <b>CHEN JINFENG</b><i></i></div>
+  <footer class="system-footer"><span><i class="status-light"></i> PERSONAL PROFILE${isWallpaper ? '<button type="button" class="three-toggle" data-action="toggle-three" aria-pressed="true" title="卸载三维模型，保留 2D 界面">3D 开启</button>' : ''}</span><span>CHEN JINFENG <i>／</i> <span id="clock">00:00:00</span></span><button data-action="replay" title="重播个人介绍动画">REPLAY INTRO ↗</button></footer>
   <div id="pwa-update-notice" class="pwa-update-notice" role="status" hidden><span>新版本已就绪</span><button data-pwa-action="update">更新并重启 ↻</button></div>
   <div id="modal-root"></div><div id="toast" class="toast" role="status"></div>
-  <div id="loading" class="loading"><div class="loading-mark">${logo}</div><span>CONNECTING TO INTERNAL DATABASE</span><i></i></div>
+  <div id="loading" class="loading"><div class="loading-mark">${logo}</div><span>PREPARING PERSONAL PROFILE</span><i></i></div>
 `;
 
 $("#boot-background").insertAdjacentHTML(
@@ -428,6 +428,7 @@ function stepFile(direction: number) {
   );
 }
 function stepColumn(direction: number) {
+  if (archiveColumns.length < 2) return;
   const lane = fileLocation(selected).lane;
   const next = wrap(lane + direction, archiveColumns.length);
   select(columnMemory[next], { axis: "lane", direction });
@@ -470,6 +471,10 @@ function updateSelection(navigation?: ArchiveNavigation) {
   columnTitle.update({ text: archiveColumns[lane], animated: motionActive("rollingText") && mode === "archive" });
   $<HTMLButtonElement>('[data-action="column-prev"]').disabled = false;
   $<HTMLButtonElement>('[data-action="column-next"]').disabled = false;
+  const singleColumn = archiveColumns.length < 2;
+  $<HTMLButtonElement>('[data-action="column-prev"]').hidden = singleColumn;
+  $<HTMLButtonElement>('[data-action="column-next"]').hidden = singleColumn;
+  $("#column-number").hidden = singleColumn;
   fileTicks.forEach((button, slot) => {
     const index = files[slot], record = records[index];
     button.dataset.select = String(index);
@@ -526,16 +531,16 @@ function toggleSaved() {
 function renderDetail() {
   tabTransition.cancel();
   const r = records[selected];
-  $("#object-id").textContent = "NO." + String(selected + 1).padStart(3, "0");
+  const tabNames = r.sections?.map((section) => section.title) ?? ["概述", "研究记录", "访问日志"];
+  $("#object-id").textContent = "NO." + String(Number(r.id.slice(2))).padStart(3, "0");
   $("#detail-content").innerHTML = `
   <div class="detail-kicker"><span>FILE ${r.id}</span><span>${escapeHtml(r.clearance)}</span></div>
   <h2>${escapeHtml(r.en)}</h2><div class="detail-title-cn">${escapeHtml(r.title)}<span>${escapeHtml(r.category)}</span></div>
   <div class="detail-rule"></div>
-  <dl class="metadata"><div><dt>DEPARTMENT / 科室</dt><dd>${escapeHtml(r.department)}</dd></div><div><dt>COLLECTION / 编目范围</dt><dd>${escapeHtml(r.date)}</dd></div><div><dt>RELATED / 相关人物</dt><dd>${escapeHtml(r.lead)}</dd></div><div><dt>STATUS / 状态</dt><dd><i></i>${r.clearance === "RESTRICTED" ? "目录访问" : "已归档 · 可读取"}</dd></div></dl>
-  <div class="detail-tabs" role="tablist"><button id="tab-overview" class="active" role="tab" aria-controls="tab-panel" aria-selected="true" data-tab="overview">01 <span>概述</span></button><button id="tab-notes" role="tab" aria-controls="tab-panel" aria-selected="false" data-tab="notes">02 <span>研究记录</span></button><button id="tab-history" role="tab" aria-controls="tab-panel" aria-selected="false" data-tab="history">03 <span>访问日志</span></button><i class="tab-indicator" aria-hidden="true"></i></div>
+  <div class="detail-tabs" role="tablist">${["overview", "notes", "history"].map((tab, index) => `<button id="tab-${tab}" class="${index === 0 ? "active" : ""}" role="tab" aria-controls="tab-panel" aria-selected="${index === 0}" data-tab="${tab}">${String(index + 1).padStart(2, "0")} <span>${escapeHtml(tabNames[index])}</span></button>`).join("")}<i class="tab-indicator" aria-hidden="true"></i></div>
   <div id="tab-panel" class="tab-panel" role="tabpanel">${overview()}</div>
   <div class="detail-actions"><button class="solid-button" data-action="bookmark">${saved.has(r.id) ? "− REMOVE FROM SAVED" : "＋ SAVE ARCHIVE"}<span>${saved.has(r.id) ? "已收藏" : "收藏档案"}</span></button><a class="export-button" href="${assetUrl(`archives/RHINE-LAB-${r.id}.txt`)}" download="RHINE-LAB-${r.id}.txt" aria-label="导出 ${r.id} 档案">EXPORT <span>↓</span></a></div>
-  <div class="detail-footnote"><a href="${escapeHtml(r.source)}" target="_blank" rel="noopener">设定参考 ↗</a><span>${String(selected + 1).padStart(3, "0")} / ${String(records.length).padStart(3, "0")}</span></div>`;
+  <div class="detail-footnote"><span>${String(selected + 1).padStart(2, "0")} / ${String(records.length).padStart(2, "0")}</span></div>`;
   $("#detail-content").setAttribute("tabindex", "-1");
   $('[data-action="bookmark"]').setAttribute("aria-pressed", String(saved.has(r.id)));
   documentDecryption.reset($("#detail-content"), !motionActive("documentReveal") || !scene || scene.decryptionFrame.phase === "clear");
@@ -554,13 +559,15 @@ function setTab(tab: string, sound = true) {
     b.setAttribute("tabindex", active ? "0" : "-1");
   });
   const r = records[selected];
+  const customSection = r.sections?.[{ overview: 0, notes: 1, history: 2 }[tab as "overview" | "notes" | "history"]];
   const tabButton = $<HTMLButtonElement>(`[data-tab="${tab}"]`);
   const indicator = $(".tab-indicator");
   indicator.style.transition = sound && motionActive("surfaceTransitions") ? "" : "none";
   indicator.style.transform = `translateX(${tabButton.offsetLeft}px) scaleX(${tabButton.offsetWidth})`;
   $("#tab-panel").setAttribute("aria-labelledby", tabButton.id);
-  $("#tab-panel").innerHTML =
-    tab === "overview"
+  $("#tab-panel").innerHTML = customSection
+    ? `<div class="panel-label">${escapeHtml(customSection.en)} / ${escapeHtml(customSection.title)}</div>${tab === "overview" ? `<p>${escapeHtml(r.abstract)}</p>` : ""}<ol class="research-notes">${customSection.items.map((item, i) => `<li><span>${String(i + 1).padStart(2, "0")}</span>${linkifyHttps(item)}</li>`).join("")}</ol>`
+    : tab === "overview"
       ? overview()
       : tab === "notes"
         ? `<div class="panel-label">RESEARCH NOTES / 研究记录</div><ol class="research-notes">${r.findings.map((f, i) => `<li><span>${String(i + 1).padStart(2, "0")}</span>${escapeHtml(f)}</li>`).join("")}</ol>`
@@ -569,7 +576,7 @@ function setTab(tab: string, sound = true) {
             .slice(0, 4)
             .map(
               (entry) =>
-                `<div class="log-row"><span>${entry.time}</span><span>JOYCE MOORE</span><b>READ AUTHORIZED</b></div>`,
+                `<div class="log-row"><span>${entry.time}</span><span>CHEN JINFENG</span><b>PROFILE VIEWED</b></div>`,
             )
             .join(
               "",
@@ -629,7 +636,7 @@ function renderModal() {
   if (!modal) return;
   modalTransition?.dispose();
   $("#modal-root").innerHTML =
-    `<div class="modal-backdrop"><section class="terminal-modal ${modal === "settings" ? "settings-modal" : ""}" role="dialog" aria-modal="true" aria-label="${modal === "settings" ? "系统设置" : modal === "saved" ? "收藏档案" : "档案检索"}"><div class="modal-top"><span>RHINE LAB / ${modal === "settings" ? "SYSTEM PREFERENCES" : "ARCHIVE DIRECTORY"}</span><button data-action="close-modal" aria-label="关闭窗口">CLOSE <span>×</span></button></div>${modal === "settings" ? settingsMarkup() : `<h2>${modal === "saved" ? "SAVED ARCHIVES" : "ARCHIVE INDEX"}<small>${modal === "saved" ? "收藏档案" : "内部档案检索"}</small></h2><div class="search-field"><span>⌕</span><input id="archive-search" type="search" autocomplete="off" placeholder="输入档案编号、名称或科室" aria-label="检索档案"/><span class="key">ESC</span></div><div class="category-filters">${categories.map((c, i) => `<button data-filter="${escapeHtml(c)}" class="${i === 0 ? "active" : ""}">${escapeHtml(c)}</button>`).join("")}</div><div class="result-header"><span>FILE / 档案</span><span>DEPARTMENT / 科室</span><span>ACCESS</span></div><div id="search-results" class="search-results"></div><div class="modal-bottom"><span id="result-count"></span><span>INTERNAL DATABASE <i>●</i> CONNECTED</span></div>`}</section></div>`;
+    `<div class="modal-backdrop"><section class="terminal-modal ${modal === "settings" ? "settings-modal" : ""}" role="dialog" aria-modal="true" aria-label="${modal === "settings" ? "系统设置" : modal === "saved" ? "收藏档案" : "档案检索"}"><div class="modal-top"><span>PERSONAL PROFILE / ${modal === "settings" ? "SYSTEM PREFERENCES" : "PROFILE DIRECTORY"}</span><button data-action="close-modal" aria-label="关闭窗口">CLOSE <span>×</span></button></div>${modal === "settings" ? settingsMarkup() : `<h2>${modal === "saved" ? "SAVED ARCHIVES" : "PROFILE INDEX"}<small>${modal === "saved" ? "收藏档案" : "个人资料检索"}</small></h2><div class="search-field"><span>⌕</span><input id="archive-search" type="search" autocomplete="off" placeholder="输入档案编号、名称或简历内容" aria-label="检索档案"/><span class="key">ESC</span></div><div class="category-filters">${categories.map((c, i) => `<button data-filter="${escapeHtml(c)}" class="${i === 0 ? "active" : ""}">${escapeHtml(c)}</button>`).join("")}</div><div class="result-header"><span>FILE / 档案</span><span>CATEGORY / 分类</span><span>ACCESS</span></div><div id="search-results" class="search-results"></div><div class="modal-bottom"><span id="result-count"></span><span>PERSONAL PROFILE <i>●</i> READY</span></div>`}</section></div>`;
   const backdrop = $(".modal-backdrop");
   backdrop.hidden = true;
   modalTransition = new SurfaceTransition(backdrop, $(".terminal-modal"));
@@ -657,7 +664,7 @@ function renderResults() {
       ({ r }) =>
         (modal !== "saved" || saved.has(r.id)) &&
         (filter === "全部档案" || r.category === filter) &&
-        `${r.id} ${r.title} ${r.en} ${r.department} ${r.lead}`
+        `${r.id} ${r.title} ${r.en} ${r.abstract} ${r.sections?.flatMap((section) => [section.title, section.en, ...section.items]).join(" ") ?? ""}`
           .toLowerCase()
           .includes(searchQuery.toLowerCase()),
     );
@@ -665,10 +672,10 @@ function renderResults() {
     ? results
         .map(
           ({ r, i }) =>
-            `<button class="result-row" data-result="${i}"><span class="result-name"><b>${r.id}</b><span>${escapeHtml(r.title)}<small>${escapeHtml(r.en)}</small></span>${saved.has(r.id) ? "<i>＋</i>" : ""}</span><span>${escapeHtml(r.department)}</span><span>${r.clearance === "RESTRICTED" ? "CATALOG ONLY" : "AUTHORIZED"} <i>↗</i></span></button>`,
+            `<button class="result-row" data-result="${i}"><span class="result-name"><b>${r.id}</b><span>${escapeHtml(r.title)}<small>${escapeHtml(r.en)}</small></span>${saved.has(r.id) ? "<i>＋</i>" : ""}</span><span>${escapeHtml(r.category)}</span><span>PERSONAL RECORD <i>↗</i></span></button>`,
         )
         .join("")
-    : `<div class="empty-results"><span>∅</span><strong>${modal === "saved" && !searchQuery ? "尚无收藏档案" : "没有匹配的档案"}</strong><p>${modal === "saved" && !searchQuery ? "读取档案时，选择 SAVE ARCHIVE 将其保存在此处。" : "尝试其他名称、档案编号，或切换科室分类。"}</p><button data-action="reset-search">${modal === "saved" ? "查看全部档案 →" : "重置检索 →"}</button></div>`;
+    : `<div class="empty-results"><span>∅</span><strong>${modal === "saved" && !searchQuery ? "尚无收藏档案" : "没有匹配的档案"}</strong><p>${modal === "saved" && !searchQuery ? "读取档案时，选择 SAVE ARCHIVE 将其保存在此处。" : "尝试其他名称、档案编号，或切换档案分类。"}</p><button data-action="reset-search">${modal === "saved" ? "查看全部档案 →" : "重置检索 →"}</button></div>`;
   $("#result-count").textContent =
     `${String(results.length).padStart(2, "0")} RECORDS FOUND`;
 }
@@ -686,7 +693,7 @@ function motionPreferenceNoteMarkup() {
   return `<div id="motion-preference-note" class="motion-preference-note"><p>${motionSummary(prefs.motion)}</p><span>预设：${preset === "full" ? "完整动画" : preset === "reduced" ? "减少动画" : "自定义"} · 选择会保存在本站</span>${allEnabled ? "" : '<button data-action="enable-motion">启用完整动画并重播 ↻</button>'}</div>`;
 }
 function settingsMarkup() {
-  return `<h2>SYSTEM SETTINGS<small>终端偏好设置</small></h2><p class="settings-intro">JOYCE MOORE <span>·</span> SESSION AUTHORIZED</p>${isWallpaper ? '<p class="wallpaper-settings-note">每次启动都会读取 Wallpaper Engine 中的设置。在此修改仅对当前运行生效，无法持久保存；如需保留，请在 Wallpaper Engine 的壁纸属性中调整。</p>' : ""}<div class="settings-list">${themeSettingsMarkup(prefs.colorTheme === "dark")}${!isWallpaper ? `<label><div><strong>SUPER PERFORMANCE</strong><span>降低三维画质和渲染分辨率，保留完整动效；关闭后恢复原画质</span></div><input type="checkbox" data-pref="superPerformance" ${prefs.superPerformance ? "checked" : ""}/><i class="toggle"></i></label>` : ""}${workbench?.settingsMarkup() ?? ""}${audioSettingsMarkup(prefs)}</div>${motionPreferenceNoteMarkup()}${motionSettingsMarkup(prefs.motion, prefs.motionPreset)}${qualityMarkup(prefs.rendering)}${pwaSettingsMarkup()}<div class="settings-shortcuts">${isWallpaper ? '<span>DESKTOP CONTROLS</span><p>拖动阵列或点击界面按钮浏览档案。桌面模式下，方向键与滚轮可能无法传入壁纸。</p>' : '<span>KEYBOARD CONTROLS</span><p><kbd>←</kbd><kbd>→</kbd> 切列 <kbd>↑</kbd><kbd>↓</kbd> 选档 <kbd>ENTER</kbd> 读取 <kbd>/</kbd> 检索 <kbd>ESC</kbd> 返回</p>'}</div><div class="settings-bottom">${!isWallpaper && document.fullscreenEnabled ? '<button data-action="fullscreen">FULLSCREEN <span>↗</span></button>' : ''}<button data-action="restart">REINITIALIZE SYSTEM <span>↻</span></button></div><div class="modal-bottom"><span>ANALYSIS OS / 1.0 · 使用 MiSans 字体（小米） <a href="${assetUrl("fonts/MiSans-license.pdf")}" target="_blank" rel="noopener">字体许可</a></span><span>POWERED BY RHINE LAB</span></div>`;
+  return `<h2>SYSTEM SETTINGS<small>终端偏好设置</small></h2><p class="settings-intro">CHEN JINFENG <span>·</span> PERSONAL PROFILE</p>${isWallpaper ? '<p class="wallpaper-settings-note">每次启动都会读取 Wallpaper Engine 中的设置。在此修改仅对当前运行生效，无法持久保存；如需保留，请在 Wallpaper Engine 的壁纸属性中调整。</p>' : ""}<div class="settings-list">${themeSettingsMarkup(prefs.colorTheme === "dark")}${!isWallpaper ? `<label><div><strong>SUPER PERFORMANCE</strong><span>降低三维画质和渲染分辨率，保留完整动效；关闭后恢复原画质</span></div><input type="checkbox" data-pref="superPerformance" ${prefs.superPerformance ? "checked" : ""}/><i class="toggle"></i></label>` : ""}${workbench?.settingsMarkup() ?? ""}${audioSettingsMarkup(prefs)}</div>${motionPreferenceNoteMarkup()}${motionSettingsMarkup(prefs.motion, prefs.motionPreset)}${qualityMarkup(prefs.rendering)}${pwaSettingsMarkup()}<div class="settings-shortcuts">${isWallpaper ? '<span>DESKTOP CONTROLS</span><p>拖动阵列或点击界面按钮浏览档案。桌面模式下，方向键与滚轮可能无法传入壁纸。</p>' : '<span>KEYBOARD CONTROLS</span><p><kbd>↑</kbd><kbd>↓</kbd> 选档 <kbd>ENTER</kbd> 读取 <kbd>/</kbd> 检索 <kbd>ESC</kbd> 返回</p>'}</div><div class="settings-bottom">${!isWallpaper && document.fullscreenEnabled ? '<button data-action="fullscreen">FULLSCREEN <span>↗</span></button>' : ''}<button data-action="restart">REINITIALIZE SYSTEM <span>↻</span></button></div><div class="modal-bottom"><span>PERSONAL PROFILE / 1.0 · 使用 MiSans 字体（小米） <a href="${assetUrl("fonts/MiSans-license.pdf")}" target="_blank" rel="noopener">字体许可</a></span><span>ABOUT CHEN JINFENG</span></div>`;
 }
 
 document.addEventListener("input", (e) => {
@@ -1156,10 +1163,10 @@ async function start() {
       loadBootWebfonts(),
       // With unicode-range faces, preload the opening's actual characters,
       // not every font shard. Other archive text loads on demand.
-      document.fonts.load("300 20px MiSans", "ACCESS WELCOME TO INTERNAL DATABASE"),
-      document.fonts.load("400 20px MiSans", "身份信息确认请求已接收开始处理权限验证通过欢迎访问莱茵生命内部资料档案编号保密级别商业区选择档案：0123456789 JOYCE MOORE"),
-      document.fonts.load("600 20px MiSans", "SYNTHESIZE INFORMATION ANALYSIS OS"),
-      document.fonts.load("700 20px MiSans", "RHINE LAB WELCOME TO INTERNAL DATABASE"),
+      document.fonts.load("300 20px MiSans", "WELCOME TO MY PROFILE PERSONAL INTRODUCTION"),
+      document.fonts.load("400 20px MiSans", "个人介绍个人档案陈锦锋个人资料已准备简历编号选择档案：0123456789 CHEN JINFENG PROFILE READY PROFILE LOADED PREPARING PROFILE"),
+      document.fonts.load("600 20px MiSans", "EDUCATION EXPERIENCE GOALS PERSONAL INTRODUCTION"),
+      document.fonts.load("700 20px MiSans", "PERSONAL INTRODUCTION WELCOME TO ABOUT CHEN JINFENG"),
     ]);
     if (scene) bindScene(scene);
     savePrefs();
