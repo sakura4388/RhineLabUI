@@ -1,22 +1,23 @@
 ﻿PERSONAL INTRODUCTION · RESUME ARCHIVE
-FILE X-005 / 学习经历
-EDUCATION
+FILE X-005 / 技能与专长
+SKILLS & EXPERTISE
 
-目前就读于杭州电子科技大学智能制造工程专业；此前就读于浙江大学附属中学玉泉校区。个人主页记录了从小学 Scratch 启蒙到高中游戏编写的编程学习经历。
+个人主页明确列出 Python 和 C，并记录 Scratch 编程启蒙。黑客松项目还使用 JavaScript、Node.js、WebSocket、Cloudflare Pages 和 Durable Objects；主页未提供熟练度或语言等级。
 
-本科教育 / UNDERGRADUATE
-1. 时间：2026 — 至今。
-2. 学校：杭州电子科技大学。
-3. 专业：智能制造工程。
-4. 阶段：本科，2026 级新生。
+编程语言 / PROGRAMMING LANGUAGES
+1. Scratch：小学阶段用于自主制作小游戏。
+2. Python：初中阶段通过网络资料自学。
+3. C：个人主页技能列表中明确列出。
+4. JavaScript、Node.js：应用于《物理学不存在了》项目开发。
 
-高中教育 / HIGH SCHOOL
-1. 时间：2023 — 2026。
-2. 学校：浙江大学附属中学（玉泉校区）。
-3. 个人主页未列出具体课程、成绩或班级信息。
+开发技术 / DEVELOPMENT TOOLS
+1. WebSocket：用于游戏联机通信。
+2. Cloudflare Pages 与 Durable Objects：项目部署及云端联机中继。
+3. 项目实践包括卡牌效果可视化、地图交互和一键部署脚本。
+4. 具体掌握程度、使用年限及其他工具经验：主页未说明。
 
-自主学习 / SELF-DIRECTED LEARNING
-1. 小学：通过 Scratch 自主制作小游戏，开始编程启蒙。
-2. 初中：在网上寻找资料，自学 Python。
-3. 高中：编写简单游戏，继续通过项目实践编程。
-4. 个人主页未列出具体课程成绩或证书。
+思维与兴趣 / STRENGTHS & INTERESTS
+1. 喜欢数学，重视逻辑与解决难题的过程。
+2. 习惯把复杂问题拆解、建模，并用代码验证。
+3. 个人主页自述：勤奋、学习较快、善于解决问题。
+4. 语言等级、沟通协作评估或专业证书：主页未提供。

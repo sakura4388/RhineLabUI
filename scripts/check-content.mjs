@@ -9,7 +9,7 @@ import {
 import { escapeHtml } from "../src/html.ts";
 
 const content = await loadContent();
-test("all forty downloads match the shared content, including the UTF-8 BOM", async () => {
+test("all eight downloads match the shared content, including the UTF-8 BOM", async () => {
   for (const record of content.records) {
     assert.equal(
       (

@@ -7,7 +7,7 @@
   ],
   "records": [
     {
-      "id": "X-003",
+      "id": "X-001",
       "title": "人生概览",
       "en": "LIFE OVERVIEW",
       "department": "个人简历",
@@ -67,7 +67,7 @@
       ]
     },
     {
-      "id": "X-005",
+      "id": "X-002",
       "title": "学习经历",
       "en": "EDUCATION",
       "department": "个人简历",
@@ -123,7 +123,7 @@
       ]
     },
     {
-      "id": "X-010",
+      "id": "X-003",
       "title": "职业经历",
       "en": "WORK EXPERIENCE",
       "department": "个人简历",
@@ -165,7 +165,7 @@
       ]
     },
     {
-      "id": "X-023",
+      "id": "X-004",
       "title": "项目与成果",
       "en": "PROJECTS & ACHIEVEMENTS",
       "department": "个人简历",
@@ -221,7 +221,7 @@
       ]
     },
     {
-      "id": "X-024",
+      "id": "X-005",
       "title": "技能与专长",
       "en": "SKILLS & EXPERTISE",
       "department": "个人简历",
@@ -279,7 +279,7 @@
       ]
     },
     {
-      "id": "X-025",
+      "id": "X-006",
       "title": "荣誉与证书",
       "en": "HONORS & CERTIFICATIONS",
       "department": "个人简历",
@@ -327,7 +327,7 @@
       ]
     },
     {
-      "id": "X-026",
+      "id": "X-007",
       "title": "重要经历",
       "en": "KEY LIFE EXPERIENCES",
       "department": "个人简历",
@@ -379,7 +379,7 @@
       ]
     },
     {
-      "id": "X-027",
+      "id": "X-008",
       "title": "未来规划",
       "en": "FUTURE PLANS",
       "department": "个人简历",

@@ -153,7 +153,29 @@ function readLocal<T>(key: string, fallback: T): T {
     return fallback;
   }
 }
-const saved = new Set<string>(readLocal<string[]>("rhine-saved", []));
+const legacyResumeIds: Record<string, string> = {
+  "X-003": "X-001",
+  "X-005": "X-002",
+  "X-010": "X-003",
+  "X-023": "X-004",
+  "X-024": "X-005",
+  "X-025": "X-006",
+  "X-026": "X-007",
+  "X-027": "X-008",
+};
+const storedSaved = readLocal<unknown>("rhine-saved", []);
+let savedIds = Array.isArray(storedSaved)
+  ? storedSaved.filter((id): id is string => typeof id === "string")
+  : [];
+try {
+  if (localStorage.getItem("rhine-resume-ids-v2") !== "1") {
+    savedIds = savedIds.flatMap((id) => legacyResumeIds[id] ? [legacyResumeIds[id]] : []);
+    localStorage.setItem("rhine-saved", JSON.stringify(savedIds));
+    localStorage.setItem("rhine-resume-ids-v2", "1");
+  }
+} catch {}
+const validResumeIds = new Set(records.map((record) => record.id));
+const saved = new Set<string>(savedIds.filter((id) => validResumeIds.has(id)));
 const storedPrefs = readLocal<Partial<{ sound: boolean; music: boolean; soundVolume: number; musicVolume: number; reduced: boolean; quality: boolean; rendering: RenderQuality; superPerformance: boolean; colorTheme: "light" | "dark"; motion: StoredMotion; motionPreset: MotionPreset }>>("rhine-settings", {});
 const initialMotion = createMotionPreferences(
   storedPrefs.motion,

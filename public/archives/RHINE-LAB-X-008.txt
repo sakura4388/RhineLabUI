@@ -1,5 +1,5 @@
 ﻿PERSONAL INTRODUCTION · RESUME ARCHIVE
-FILE X-027 / 未来规划
+FILE X-008 / 未来规划
 FUTURE PLANS
 
 希望从事后端与软件开发，将 AI Agent 作为进一步探索的应用方向。计划打牢编程与计算机基础，逐步学习 API、数据库、服务架构、测试和部署，并实践大模型接入、工具调用与 Agent 工作流。长期希望成长为工程基础扎实、能交付可靠实用软件的开发者，以技术实现个人价值与社会价值。

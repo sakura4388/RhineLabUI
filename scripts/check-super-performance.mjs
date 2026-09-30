@@ -14,7 +14,7 @@ await mkdir('verification/super-performance',{recursive:true});
 await page.waitForTimeout(6000);const original=await measure();await page.screenshot({path:'verification/super-performance/original.png'});
 await apply({superperformance:true},6000);const fast=await measure();await page.screenshot({path:'verification/super-performance/super.png'});
 assert.equal(fast.stats.superPerformance,true);assert.equal(fast.stats.motion.reduced,false);assert.equal(fast.quality.shadows,0);assert.equal(fast.quality.aoSamples,0);assert.equal(fast.quality.depthOfField,0);assert.equal(fast.screen,'false');assert.equal(fast.font,original.font);assert.ok(fast.quality.width*fast.quality.height<=921600);assert.ok(fast.stats.drawCalls<original.stats.drawCalls);assert.ok(fast.stats.triangles<original.stats.triangles);
-await page.evaluate(()=>window.rhine.select(9));await page.waitForTimeout(180);assert.equal((await measure()).stats.selected,'X-010');
+await page.evaluate(()=>window.rhine.select(2));await page.waitForTimeout(180);assert.equal((await measure()).stats.selected,'X-003');
 await apply({desktopmode:'archive'});await page.waitForTimeout(1000);await page.evaluate(()=>window.rhine.detail());await page.waitForTimeout(3500);assert.equal((await measure()).stats.mode,'detail');await page.screenshot({path:'verification/super-performance/detail.png'});
 await page.evaluate(()=>window.rhine.archive());await page.waitForTimeout(1200);
 await apply({superperformance:false},4000);const restored=await measure();assert.equal(restored.quality.width,original.quality.width);assert.equal(restored.quality.shadows,original.quality.shadows);assert.equal(restored.screen,'true');assert.equal(restored.stats.motion.reduced,false);
